@@ -34,6 +34,7 @@ public class TwitterTest {
 			//# (フォロワーの一覧を出したい対象のユーザ情報)
 			User user = twitter.showUser("_taro_taro_0851");
 			int counter=1;
+			
 			System.out.println("#### 処理開始 ####");
 			//# ②ユーザ情報が取得できた場合
 			if (user.getStatus() != null) {
