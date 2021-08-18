@@ -32,7 +32,7 @@ public class TwitterTest {
 			Twitter twitter = new TwitterFactory().getInstance();
 			//#### ①ユーザ情報の取得
 			//# (フォロワーの一覧を出したい対象のユーザ情報)
-			User user = twitter.showUser("7231Nony");
+			User user = twitter.showUser("_taro_taro_0851");
 			int counter=1;
 			System.out.println("#### 処理開始 ####");
 			//# ②ユーザ情報が取得できた場合
@@ -48,16 +48,21 @@ public class TwitterTest {
 				System.out.println("Friend   IDの数" + frids.length);
 
 				ArrayList<Long> mutualids = new ArrayList<>();
+				ArrayList<Long> onewayfrids = new ArrayList<>();
 				for(long frid : frids) {
 					//# 両想いチェックフラグ
 					boolean mutual = false;
-//					System.out.print("両想いチェック " + frid + ":");
+					boolean onewayfr = true;
 					for(long foid : foids) {
 						//# 両想いチェック
 						if(frid == foid) {
 							mutual = true;
+							onewayfr = false;
 							mutualids.add(frid);
 						}
+					}
+					if(onewayfr == true) {
+						onewayfrids.add(frid);
 					}
 //					if(mutual == true) System.out.print("****");
 //					System.out.print(mutual + "\n");
@@ -70,6 +75,13 @@ public class TwitterTest {
 					//# フォロワーの情報を表示
 					System.out.printf("No.%-6s ID:%-30s ScreenID：@%-15s フォロワー数：%6s 名前：%-40s\r\n",i,follower.getId(),follower.getScreenName(),follower.getFollowersCount(),follower.getName());
 //					System.out.println("両想い ID = " + mutualids.get(i));
+				}
+				
+				for(int i =0; i < onewayfrids.size(); i++) {
+					//# フォロワーの情報を取得
+					User follower = twitter.showUser(onewayfrids.get(i));
+					//# フォロワーの情報を表示
+				System.out.printf("No.%-6s ID:%-30s ScreenID：@%-15s フォロワー数：%6s 名前：%-40s\r\n",i,follower.getId(),follower.getScreenName(),follower.getFollowersCount(),follower.getName());
 				}
 				
 				
